@@ -23,7 +23,7 @@ export default defineSchema({
         likes: v.number()
     }).index("by_likes",["likes"]),
     post: defineTable({
-        user_id: v.id("user"),
+        user_id: v.id("users"),
         contents: v.string(),
         playlist_id: v.optional(v.id("playlist")),
         music_id: v.optional(v.string()),
@@ -31,12 +31,12 @@ export default defineSchema({
         comments: v.array(v.id("comment"))
     }),
     comment: defineTable({
-        user_id: v.id("user"),
+        user_id: v.id("users"),
         content: v.string()
     }),
     group: defineTable({
         name: v.string(),
-        user_ids: v.array(v.id("user")),
+        user_ids: v.array(v.id("users")),
         messages: v.array(v.string())
     }),
 })
