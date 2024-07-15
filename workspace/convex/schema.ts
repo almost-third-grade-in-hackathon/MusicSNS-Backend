@@ -19,7 +19,8 @@ export default defineSchema({
     .index("by_email",["email"]),
     playlist: defineTable({
         name: v.string(),
-        music_ids: v.string(),
+        /* 修正前 music_ids: v.string() */
+        music_ids: v.array(v.string()), //music_idの配列に変更
         likes: v.number()
     }).index("by_likes",["likes"]),
     post: defineTable({
@@ -37,6 +38,7 @@ export default defineSchema({
     group: defineTable({
         name: v.string(),
         user_ids: v.array(v.id("users")),
-        messages: v.array(v.string())
+        /*修正前 messages: v.array(v.string())*/
+        comments: v.array(v.id("comment")) //comment schemaを利用
     }),
 })
