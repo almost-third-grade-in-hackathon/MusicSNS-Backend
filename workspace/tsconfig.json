@@ -9,6 +9,8 @@
     "allowJs": true,
 
     // Bundler mode
+    // SkipLibCheckは暗号生成のためだけに指定
+    "skipDefaultLibCheck": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
