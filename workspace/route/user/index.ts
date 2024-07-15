@@ -1,6 +1,5 @@
 import FastifyPlugin from "fastify-plugin"
-export default FastifyPlugin(function(){})
-
+export default FastifyPlugin(async function(fastify,opt){})
 
 const CreateAccount = () => {
 
