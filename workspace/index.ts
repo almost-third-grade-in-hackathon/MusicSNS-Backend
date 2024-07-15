@@ -1,8 +1,9 @@
 import Fastify from "fastify"
+import type {TypeBoxTypeProvider} from "@fastify/type-provider-typebox"
 
 const fastify = Fastify({
     logger: true
-})
+}).withTypeProvider<TypeBoxTypeProvider>()
 
 fastify.get("/",async function(request,reply) {
     reply.send({hello: "world!"})
