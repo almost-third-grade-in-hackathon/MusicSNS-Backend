@@ -13,6 +13,7 @@
     "@convex-dev/auth": "^0.0.36",
     "@fastify/type-provider-typebox": "^4.0.0",
     "@sinclair/typebox": "^0.32.34",
+    "@spotify/web-api-ts-sdk": "^1.2.0",
     "convex": "^1.13.0",
     "convex-helpers": "^0.1.47",
     "fastify": "^4.28.1",
