@@ -18,8 +18,15 @@ type RouteType =`/${Janr}/${string}`
  * ```
  */
 
-function RouteHelper({root,end}: {root: Janr,end: string}): RouteType {
-    return `/${root}/${end}`
+function RouteHelper({root,end}: {root: Janr,end: string[]}): RouteType {
+    const first = end.shift() as string
+    if(end.length === 0){
+        return `/${root}/${first}`
+    }else {
+        const result = end.map(val => `/${val}`).join("")
+        const connect = `${first}${result}`
+        return `/${root}/${connect}`
+    }
 }
 
 export type {Janr,RouteType}
