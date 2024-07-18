@@ -1,4 +1,4 @@
-type Janr = "music" | "playlist" | "post" | "user"
+type Janr = "music" | "playlist" | "post" | "user" | "auth"
 type RouteType =`/${Janr}/${string}`
 
 /**
