@@ -5,6 +5,7 @@ import RouteHelper from "../RouteType"
 
 const sdk = SpotifyApi.withUserAuthorization(process.env.SPOTIFY_CLIENT_ID as string,"http://localhost:8000")
 
+
 export default FastifyPlugin(async function(fastify,opt){
     RouteRegister(
         {fastify,route: RouteHelper({root: "music",end: ["track","search"]}),method:"POST"},
@@ -46,3 +47,4 @@ export default FastifyPlugin(async function(fastify,opt){
 const GetMusic = () => {
     
 }
+
