@@ -4,6 +4,7 @@ import { type Validator, v } from "convex/values";
 export const userSchema = {
     email: v.string(),
     name: v.optional(v.string()),
+    password: v.string(),
     emailVerified: v.optional(v.number()),
     image: v.optional(v.string()),
     age: v.number(),

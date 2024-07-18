@@ -1,6 +1,7 @@
 import FastifyPlugin from "fastify-plugin"
 import RouteRegister from "../RouteRegister"
 import RouteHelper from '../RouteType';
+import { auth, signIn } from "../../convex/auth";
 
 export default FastifyPlugin(async function(fastify,opt){
     RouteRegister({
@@ -36,6 +37,16 @@ export default FastifyPlugin(async function(fastify,opt){
             .header("Cache-Control","public, max-age=15, stale-while-revalidate=15, stale-if-error=86400")
             .send(process.env.JWKS)
     })
-
+    RouteRegister({
+        fastify,
+        route: RouteHelper({
+            root: "auth",
+            end: ["signin"]
+        }),
+        method: "POST"
+    },async(request,reply) => {
+        
+    })
+    
 })
 

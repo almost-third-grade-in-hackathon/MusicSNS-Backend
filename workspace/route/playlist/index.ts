@@ -9,7 +9,9 @@ export default FastifyPlugin(async function(fastify,opt){
             root: "playlist",
             end: ["create"]
         })
-    },async(request,reply) => {})
+    },async(request,reply) => {
+        
+    })
     RouteRegister({
         fastify,
         method: "POST",
