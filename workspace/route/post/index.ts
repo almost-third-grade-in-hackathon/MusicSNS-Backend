@@ -16,26 +16,29 @@ export default FastifyPlugin(async function(fastify,opt){
     )
 
     RouteRegister(
-        
-
         {fastify, route: RouteHelper({root: "post", end: []}), method: "POST"},
         async (request, reply) => {
-            request.body
-            const response_status = useMutation(api.post.postPost, {});
+            const response_status = useMutation(api.post.postPost, request.body.name);
+            reply.type("application/json")
+            reply.send(response_status)
         }
     )
 
     RouteRegister(
         {fastify, route: RouteHelper({root: "post", end: []}), method: "PUT"},
         async (request, reply) => {
-            const response_data = useMutation(api.post.createPost, {});
+            const response_status = useMutation(api.post.createPost, request.body.name);
+            reply.type("application/json")
+            reply.send(response_status)
         }
     )
 
     RouteRegister(
         {fastify, route: RouteHelper({root: "post", end: []}), method: "DELETE"},
         async (request, reply) => {
-            const response_data = useMutation(api.post.deletePost, {});
+            const response_status = useMutation(api.post.deletePost, {});
+            reply.type("application/json")
+            reply.send(response_status)
         }
     )
 })
