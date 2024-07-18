@@ -1,5 +1,13 @@
 import FastifyPlugin from "fastify-plugin"
-export default FastifyPlugin(async function(fastify,opt){})
+import RouteRegister from "../RouteRegister"
+import RouteHelper from '../RouteType';
+
+new Response()
+
+export default FastifyPlugin(async function(fastify,opt){
+    
+
+})
 
 const CreateAccount = () => {
 

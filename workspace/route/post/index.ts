@@ -2,7 +2,7 @@ import FastifyPlugin from "fastify-plugin"
 import RouteRegister from "../RouteRegister"
 import RouteHelper from "../RouteType"
 import { useQuery, useMutation } from "convex/react";
-import { api } from "../convex/_generated/api";
+import { api } from "../../convex/_generated/api";
 
 export default FastifyPlugin(async function(fastify,opt){
     /* POSTテーブルからGET (クエリパラメータを用いた条件検索は未実装)*/
