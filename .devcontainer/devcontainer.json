@@ -18,7 +18,14 @@
 	"forwardPorts": ["8000:8000"],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bun i"
+	"postCreateCommand": "bun i",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"YoavBls.pretty-ts-errors"
+			]
+		}
+	}
 
 	// Configure tool-specific properties.
 

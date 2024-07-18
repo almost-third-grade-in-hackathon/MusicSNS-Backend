@@ -1,22 +1,9 @@
 import {defineSchema,defineTable} from "convex/server"
 import {v} from "convex/values"
-/* import { authTables } from "@convex-dev/auth/server"
- */
+import { authTables } from "../ConvexProvider/schema"
+
 export default defineSchema({
-    /* ...authTables, */
-    users: defineTable({
-        name: v.string(),
-        icon: v.string(),
-        age: v.number(),
-        gender: v.union(v.literal("male"),v.literal("female")),
-        genres: v.array(v.string()),
-        top_five_plays: v.array(v.string()),
-        playlists: v.array(v.id("playlist")),
-        tokenIdentifier: v.string(),
-        email: v.string()
-    })
-    .index("by_token",["tokenIdentifier"])
-    .index("by_email",["email"]),
+    ...authTables,
     playlist: defineTable({
         name: v.string(),
         /* 修正前 music_ids: v.string() */
