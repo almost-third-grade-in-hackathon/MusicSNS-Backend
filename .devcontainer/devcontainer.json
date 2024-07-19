@@ -6,7 +6,8 @@
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 	"features": {
 		"ghcr.io/shyim/devcontainers-features/bun:0": {},
-		"ghcr.io/devcontainers/features/node:1": {}
+		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/bartventer/arch-devcontainer-features/gcloud-cli:1": {}
 	},
 	"workspaceMount": "source=${localWorkspaceFolder}/workspace,target=/workspace,type=bind,consistency=cached",
 	"workspaceFolder": "/workspace",
