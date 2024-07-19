@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import Google from "@auth/core/providers/google"
-import {ConvexAdapter} from "../ConvexProvider/index"
+import {ConvexAdapter} from "./ConvexProvider/index"
 
 export const {auth,signIn,signOut} = NextAuth({
     providers: [Google({

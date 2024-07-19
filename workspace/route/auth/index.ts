@@ -1,7 +1,7 @@
 import FastifyPlugin from "fastify-plugin"
 import RouteRegister from "../RouteRegister"
 import RouteHelper from '../RouteType';
-import { auth, signIn } from "../../convex/auth";
+import { auth, signIn } from "../../auth";
 
 export default FastifyPlugin(async function(fastify,opt){
     RouteRegister({
