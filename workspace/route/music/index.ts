@@ -43,7 +43,3 @@ export default FastifyPlugin(async function(fastify,opt){
         }
     )
 })
-
-const GetMusic = () => {
-    
-}
