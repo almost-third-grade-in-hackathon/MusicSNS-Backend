@@ -3,7 +3,7 @@ import RouteRegister from "../RouteRegister"
 import RouteHelper from "../RouteType"
 import ConvexSubscribeClient from "../ConvexSubscribeClient"
 import { api } from "../../convex/_generated/api"
-import type { Doc } from "../../convex/_generated/dataModel"
+
 export default FastifyPlugin(async function(fastify,opt){
     RouteRegister({
         fastify,
