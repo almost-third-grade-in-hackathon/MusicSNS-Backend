@@ -15,7 +15,7 @@ import type { Doc, TableNames } from "../convex/_generated/dataModel";
  * @argument func:処理内容を書く！
  */
 export default function RouteRegister<
-    Q extends {[x in string]: string | (Doc<TableNames>)["_id"]},
+    Q extends {[x in string]: string | Array<string> | (Doc<TableNames>)["_id"]},
     H extends {[x in string]: string},
     R extends {[x in string]: any} | string
 >(

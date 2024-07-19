@@ -3,9 +3,17 @@ import RouteRegister from "../RouteRegister"
 import RouteHelper from "../RouteType"
 import ConvexSubscribeClient from "../ConvexSubscribeClient"
 import { api } from "../../convex/_generated/api"
+import type { Doc } from "../../convex/_generated/dataModel"
 
 export default FastifyPlugin(async function(fastify,opt){
-    RouteRegister({
+    RouteRegister<{
+        name: string,
+        ids: []
+    },{},{
+        result: string & {
+            __tableName: "playlist";
+        }        
+    }>({
         fastify,
         method: "POST",
         route: RouteHelper({
@@ -15,13 +23,13 @@ export default FastifyPlugin(async function(fastify,opt){
     },async(request,reply) => {
         reply.status(200).type("application/json")
             .send({
-                result: ConvexSubscribeClient.mutation(api.playlist.CreateList,{
-                    name: "",
-                    ids: []
+                result: await ConvexSubscribeClient.mutation(api.playlist.CreateList,{
+                    name: request.query.name,
+                    ids: request.query.ids
                 })
             })
     })
-    RouteRegister({
+    RouteRegister<{id: Doc<"playlist">["_id"]},{},{list:Doc<"playlist"> }>({
         fastify,
         method: "POST",
         route: RouteHelper({
@@ -29,8 +37,8 @@ export default FastifyPlugin(async function(fastify,opt){
             end: ["read"]
         })
     },async(request,reply) => {
-        reply.status(200).type("applicatiom/json").send({
-            list:  await ConvexSubscribeClient.query(api.playlist.ReadList,{id: {}})
+        reply.status(200).type("application/json").send({
+            list:  await ConvexSubscribeClient.query(api.playlist.ReadList,{id: request.query.id})
         })
     })
     RouteRegister({
@@ -45,7 +53,12 @@ export default FastifyPlugin(async function(fastify,opt){
             lists: await ConvexSubscribeClient.query(api.playlist.ReadLists,{})
         })
     })
-    RouteRegister({
+    RouteRegister<{
+        name: string,
+        ids: Array<string>
+        list_id: Doc<"playlist">["_id"]
+    },{},{
+    }>({
         fastify,
         method: "PUT",
         route: RouteHelper({
@@ -54,12 +67,14 @@ export default FastifyPlugin(async function(fastify,opt){
         })
     },async(request,reply) => {
         reply.status(200).type("application/json").send({
-            result: await ConvexSubscribeClient.query(api.playlist.UpdateList,{
-
+            result: await ConvexSubscribeClient.mutation(api.playlist.UpdateList,{
+                name: request.query.name,
+                ids: request.query.ids,
+                list_id: request.query.list_id
             })
         })
     })
-    RouteRegister({
+    RouteRegister<{id: Doc<"playlist">["_id"]},{},{}>({
         fastify,
         method: "DELETE",
         route: RouteHelper({
@@ -67,10 +82,9 @@ export default FastifyPlugin(async function(fastify,opt){
             end: ["delete"]
         }) 
     },async(request,reply) => {
-        reply.status(200).send({
-            result: ConvexSubscribeClient.onUpdate(api.playlist.DeleteList,{},(val) => {
-                console.log(val)
-            },(err) => {throw err})
+        await ConvexSubscribeClient.mutation(api.playlist.DeleteList,{
+            id: request.query.id
         })
+        reply.status(200)
     })
 })
