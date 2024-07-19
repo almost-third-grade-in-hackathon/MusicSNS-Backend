@@ -1,5 +1,6 @@
-import type { FastifyInstance, RouteHandlerMethod } from "fastify";
+import type { FastifyBaseLogger, FastifyInstance, FastifySchema, FastifyTypeProviderDefault, RawServerDefault, RouteHandlerMethod } from "fastify";
 import type { RouteType } from "./RouteType";
+import type { IncomingMessage, ServerResponse } from "http";
 
 export default function RouteRegister<
     Q extends {[x in string]: string},
@@ -12,30 +13,30 @@ export default function RouteRegister<
     {fastify:FastifyInstance ,
     route: RouteType,
     method: "GET" | "POST" | "DELETE"| "PUT"},
-    func: RouteHandlerMethod) 
+    func: RouteHandlerMethod<RawServerDefault, IncomingMessage, ServerResponse<IncomingMessage>, { Querystring: Q; Headers: H; Reply: R}, unknown, FastifySchema, FastifyTypeProviderDefault, FastifyBaseLogger>) 
     {
     if(method === "GET") {
         fastify.get<{
-            QueryString: Q,
-            Header: H,
+            Querystring: Q,
+            Headers: H,
             Reply: R
     }>(route,func)
     }else if(method === "POST") {
         fastify.post<{
-            QueryString: Q,
-            Header: H,
+            Querystring: Q,
+            Headers: H,
             Reply: R
         }>(route,func)
     } else if(method === "DELETE") {
         fastify.delete<{
-            QueryString: Q,
-            Header: H,
+            Querystring: Q,
+            Headers: H,
             Reply: R
         }>(route,func)
     } else if(method === "PUT") {
         fastify.put<{
-            QueryString: Q,
-            Header: H,
+            Querystring: Q,
+            Headers: H,
             Reply: R
         }>(route,func)
     } else {

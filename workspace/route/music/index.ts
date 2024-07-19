@@ -16,13 +16,12 @@ export default FastifyPlugin(async function(fastify,opt){
     
     },{
         tracks: Array<Track>,
-        artists: Array<Artist>,
     }>(
         {fastify,route: RouteHelper({root: "music",end: ["track","search"]}),method:"POST"},
         async (request,reply) => {
-            const query = request.query as unknown as {[x in string]: string}
+            const {search} = request.query
             reply.status(200).type("application/json").send({
-                tracks: (await sdk.search(query.search as string,["track"])).tracks.items
+                tracks: (await sdk.search(search as string,["track"])).tracks.items
             })
         }
     )
@@ -37,8 +36,8 @@ export default FastifyPlugin(async function(fastify,opt){
         {fastify,route: RouteHelper({root: "music",end: ["artist","search"]}),method: "POST"},
         async (request,reply) => {
             // 検索のクエリ部分仮置き
-            const query = request.query as unknown as {[x in string]: string}
-            const result = await sdk.search(query.search,["artist"])
+            const {search} = request.query
+            const result = await sdk.search(search,["artist"])
             reply.type("application/json")
             reply.send({
                 artists: result.artists.items
