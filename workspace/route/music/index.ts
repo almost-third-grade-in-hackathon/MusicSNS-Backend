@@ -1,5 +1,5 @@
 import FastifyPlugin from "fastify-plugin"
-import {SpotifyApi, type Artist, type Track} from "@spotify/web-api-ts-sdk"
+import {SpotifyApi, type Artist, type Category, type Track} from "@spotify/web-api-ts-sdk"
 import RouteRegister from "../RouteRegister"
 import RouteHelper from "../RouteType"
 
@@ -17,21 +17,28 @@ export default FastifyPlugin(async function(fastify,opt){
     },{
         tracks: Array<Track>,
         artists: Array<Artist>,
-    } >(
+    }>(
         {fastify,route: RouteHelper({root: "music",end: ["track","search"]}),method:"POST"},
         async (request,reply) => {
-            const {search} = request.query
+            const query = request.query as unknown as {[x in string]: string}
             reply.status(200).type("application/json").send({
-                tracks: (await sdk.search(search,["track"])).tracks.items
+                tracks: (await sdk.search(query.search as string,["track"])).tracks.items
             })
         }
     )
     
-    RouteRegister(
+    RouteRegister<{
+        search: string
+    } ,{
+    
+    },{
+        artists: Array<Artist>,
+    }>(
         {fastify,route: RouteHelper({root: "music",end: ["artist","search"]}),method: "POST"},
         async (request,reply) => {
             // 検索のクエリ部分仮置き
-            const result = await sdk.search(search_word,["artist"])
+            const query = request.query as unknown as {[x in string]: string}
+            const result = await sdk.search(query.search,["artist"])
             reply.type("application/json")
             reply.send({
                 artists: result.artists.items
@@ -39,13 +46,19 @@ export default FastifyPlugin(async function(fastify,opt){
         }
     )
 
-    RouteRegister(
+    RouteRegister<{
+        search: string
+    } ,{
+    
+    },{
+        categories: Array<Category>,
+    }>(
         {fastify,route: RouteHelper({root: "music",end: ["category","search"]}),method: "POST"},
         async (request,reply) => {
             const result = await sdk.browse.getCategories("JP","ja_JP",10)
             reply.type("application/json")
             reply.send({
-                artists: result.categories.items
+                categories: result.categories.items
             })
         }
     )

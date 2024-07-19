@@ -1,7 +1,19 @@
-import type { FastifyInstance, RouteHandlerMethod, RouteShorthandOptions } from "fastify";
+import type { FastifyInstance, RouteHandlerMethod } from "fastify";
 import type { RouteType } from "./RouteType";
 
-export default function RouteRegister<Q extends {[x in string]: string},H extends {[x in string]: string}, R extends {[x in string]: any}>({fastify,route,method}:{fastify:FastifyInstance ,route: RouteType,method: "GET" | "POST" | "DELETE"| "PUT"},func: RouteHandlerMethod) {
+export default function RouteRegister<
+    Q extends {[x in string]: string},
+    H extends {[x in string]: string},
+    R extends {[x in string]: any}
+>(
+    {fastify,
+    route,
+    method}:
+    {fastify:FastifyInstance ,
+    route: RouteType,
+    method: "GET" | "POST" | "DELETE"| "PUT"},
+    func: RouteHandlerMethod) 
+    {
     if(method === "GET") {
         fastify.get<{
             QueryString: Q,
