@@ -16,8 +16,6 @@
   "dependencies": {
     "@auth/core": "^0.34.1",
     "@convex-dev/auth": "^0.0.36",
-    "@fastify/type-provider-typebox": "^4.0.0",
-    "@sinclair/typebox": "^0.32.34",
     "@spotify/web-api-ts-sdk": "^1.2.0",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",

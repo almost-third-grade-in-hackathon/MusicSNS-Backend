@@ -1,6 +1,9 @@
 import FastifyPlugin from "fastify-plugin"
 import RouteRegister from "../RouteRegister"
 import RouteHelper from '../RouteType';
+import { signIn, signOut } from "../../auth";
+import ConvexSubscribeClient from "../ConvexSubscribeClient";
+import { api } from "../../convex/_generated/api";
 
 new Response()
 
@@ -14,7 +17,9 @@ export default FastifyPlugin(async function(fastify,opt){
             end: ["create"]
         })
     },async (req,rep) => {
-
+        rep.status(200).type("application/json").send({
+            response: await signIn("google")
+        })
     })
     /**Login */
     RouteRegister({
@@ -25,7 +30,7 @@ export default FastifyPlugin(async function(fastify,opt){
             end: ["login"]
         })
     },async (req,rep) => {
-
+        return await signIn("google")
     })
     /**Logout */
     RouteRegister({
@@ -36,7 +41,7 @@ export default FastifyPlugin(async function(fastify,opt){
             end: ["logout"]
         })
     },async (req,rep) => {
-
+        return signOut()
     })
     /** Delete */
     RouteRegister({
@@ -47,7 +52,6 @@ export default FastifyPlugin(async function(fastify,opt){
             end: ["delete"]
         })
     },async (req,rep) => {
-        
     })
 
 })

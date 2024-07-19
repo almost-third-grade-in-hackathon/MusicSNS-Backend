@@ -1,5 +1,5 @@
 import FastifyPlugin from "fastify-plugin"
-import {SpotifyApi} from "@spotify/web-api-ts-sdk"
+import {SpotifyApi, type Artist, type Track} from "@spotify/web-api-ts-sdk"
 import RouteRegister from "../RouteRegister"
 import RouteHelper from "../RouteType"
 
@@ -10,12 +10,19 @@ const sdk = SpotifyApi.withClientCredentials(
 
 
 export default FastifyPlugin(async function(fastify,opt){
-    RouteRegister(
+    RouteRegister<{
+        search: string
+    } ,{
+    
+    },{
+        tracks: Array<Track>,
+        artists: Array<Artist>,
+    } >(
         {fastify,route: RouteHelper({root: "music",end: ["track","search"]}),method:"POST"},
         async (request,reply) => {
-            // 検索のクエリ部分仮置き
+            const {search} = request.query
             reply.status(200).type("application/json").send({
-                tracks: (await sdk.search("I'm Fading Away" as string,["track"])).tracks.items
+                tracks: (await sdk.search(search,["track"])).tracks.items
             })
         }
     )
@@ -23,9 +30,8 @@ export default FastifyPlugin(async function(fastify,opt){
     RouteRegister(
         {fastify,route: RouteHelper({root: "music",end: ["artist","search"]}),method: "POST"},
         async (request,reply) => {
-
             // 検索のクエリ部分仮置き
-            const result = await sdk.search("三浦大知",["artist"])
+            const result = await sdk.search(search_word,["artist"])
             reply.type("application/json")
             reply.send({
                 artists: result.artists.items

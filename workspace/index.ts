@@ -7,7 +7,7 @@ import UserRoute from "./route/user/index"
 
 const fastify = Fastify({
     logger: true,
-}).withTypeProvider<TypeBoxTypeProvider>()
+})
 
 fastify.get("/",async function(request,reply) {
     reply.send({hello: "world!"})
