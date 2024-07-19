@@ -3,7 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun run index.ts | jq"
+    "dev": "bun run index.ts | jq > log.json",
+    "build:deploy": "bun build index.ts index.js --outdir .",
+    "start": "bunx pm2 index.js"
   },
   "devDependencies": {
     "@types/bun": "latest"

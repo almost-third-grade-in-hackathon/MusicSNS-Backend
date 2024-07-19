@@ -3,7 +3,10 @@ import {SpotifyApi} from "@spotify/web-api-ts-sdk"
 import RouteRegister from "../RouteRegister"
 import RouteHelper from "../RouteType"
 
-const sdk = SpotifyApi.withUserAuthorization(process.env.SPOTIFY_CLIENT_ID as string,"http://localhost:8000")
+const sdk = SpotifyApi.withClientCredentials(
+    process.env.SPOTIFY_CLIENT_ID,
+    process.env.SPOTIFY_CLIENT_SECRET
+)
 
 
 export default FastifyPlugin(async function(fastify,opt){
@@ -11,10 +14,8 @@ export default FastifyPlugin(async function(fastify,opt){
         {fastify,route: RouteHelper({root: "music",end: ["track","search"]}),method:"POST"},
         async (request,reply) => {
             // 検索のクエリ部分仮置き
-            const result = await sdk.search("I'm Fading Away" as string,["track"])
-            reply.type("application/json")
-            reply.send({
-                tracks: await result.tracks.items
+            reply.status(200).type("application/json").send({
+                tracks: (await sdk.search("I'm Fading Away" as string,["track"])).tracks.items
             })
         }
     )

@@ -15,7 +15,9 @@ declare module "process" {
                 /** @param Googleのログイン機能を使うための隠しトークン */
                 GOOGLE_CLIENT_SECRET: string,
                 /** @param SpotifyのAPIを使うためのID */
-                SPOTIFY_CLIENT_ID: string
+                SPOTIFY_CLIENT_ID: string,
+                /** @param SpotifyのAPIを使うための隠しトークン */
+                SPOTIFY_CLIENT_SECRET: string
             }
         }
     }

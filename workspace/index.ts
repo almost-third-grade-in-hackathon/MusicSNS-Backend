@@ -1,7 +1,7 @@
 import Fastify from "fastify"
 import type {TypeBoxTypeProvider} from "@fastify/type-provider-typebox"
 import MusicRoute from "./route/music/index"
-import PlaylistRoute from "./route/music/index"
+import PlaylistRoute from "./route/playlist/index"
 import PostRoute from "./route/post/index"
 import UserRoute from "./route/user/index"
 
