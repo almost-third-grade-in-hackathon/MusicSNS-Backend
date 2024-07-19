@@ -176,3 +176,6 @@ dist
 
 # Convex Generates
 /convex/_generated/
+
+# log
+./log.json
