@@ -7,7 +7,7 @@ handlerの引数は即席でanyにしてるので書き換えお願いします 
 
 /* 投稿記事取得　(フィルターない前提なんで要修正)　*/
 export const getPost = query({
-     /* handlerに渡す引数を指定 (要修正)*/
+    /* handlerに渡す引数を指定 (要修正)*/
     args: {},
     handler: async (ctx: any, args: any) => {
         const tasks = await ctx.db
