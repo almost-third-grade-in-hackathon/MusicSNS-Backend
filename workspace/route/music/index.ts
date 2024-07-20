@@ -17,7 +17,7 @@ export default FastifyPlugin(async function(fastify,opt){
     },{
         tracks: Array<Track>,
     }>(
-        {fastify,route: RouteHelper({root: "music",end: ["track","search"]}),method:"POST"},
+        {fastify,route: "/music/track/search" ,method:"POST"},
         async (request,reply) => {
             const {search} = request.query
             reply.status(200).type("application/json").send({
@@ -33,7 +33,7 @@ export default FastifyPlugin(async function(fastify,opt){
     },{
         artists: Array<Artist>,
     }>(
-        {fastify,route: RouteHelper({root: "music",end: ["artist","search"]}),method: "POST"},
+        {fastify,route: "/music/artist/search",method: "POST"},
         async (request,reply) => {
             // 検索のクエリ部分仮置き
             const {search} = request.query
@@ -52,7 +52,7 @@ export default FastifyPlugin(async function(fastify,opt){
     },{
         categories: Array<Category>,
     }>(
-        {fastify,route: RouteHelper({root: "music",end: ["category","search"]}),method: "POST"},
+        {fastify,route: "/music/category/search", method: "POST"},
         async (request,reply) => {
             const result = await sdk.browse.getCategories("JP","ja_JP",10)
             reply.type("application/json")

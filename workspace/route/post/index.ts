@@ -10,7 +10,7 @@ export default FastifyPlugin(async function(fastify,opt){
     RouteRegister<{}, {}, {
         post: Doc<"post">
     }>(
-        {fastify,route: RouteHelper({root: "post",end: []}),method:"GET"},
+        {fastify,route: "/post",method:"GET"},
         async (request,reply) => {
             const res = await ConvexSubscribeClient.query(api.post.getPost, {});
             reply.type("application/json")
@@ -18,13 +18,12 @@ export default FastifyPlugin(async function(fastify,opt){
         }
     )
 
-    /* 記事検索　*/
     RouteRegister<{
         q: string
     }, {}, {
         post: Doc<"post">
     }>(
-        {fastify,route: RouteHelper({root: "post",end: []}),method:"GET"},
+        {fastify,route: "post/search", method:"GET"},
         async (request,reply) => {
             const res = await ConvexSubscribeClient.query(api.post.searchPost, {q: request.query.q});
             reply.type("application/json")
@@ -32,7 +31,6 @@ export default FastifyPlugin(async function(fastify,opt){
         }
     )
 
-    /* 記事を投稿 */
     RouteRegister<{
         user_id: string,
         contents: string,
@@ -41,7 +39,7 @@ export default FastifyPlugin(async function(fastify,opt){
     }, {}, {
         post: Doc<"post">
     }>(
-        {fastify,route: RouteHelper({root: "post",end: []}),method:"POST"},
+        {fastify,route: "/post", method:"POST"},
         async (request,reply) => {
             const res = await ConvexSubscribeClient.mutation(api.post.createPost, {
                 user_id: request.query.user_id,
@@ -54,7 +52,6 @@ export default FastifyPlugin(async function(fastify,opt){
         }
     )
 
-    /* 記事を更新 */
     RouteRegister<{
         id: Doc<"post">["_id"],
         contents: string,
@@ -63,7 +60,7 @@ export default FastifyPlugin(async function(fastify,opt){
     }, {}, {
         post: Doc<"post">
     }>(
-        {fastify,route: RouteHelper({root: "post",end: []}),method:"PUT"},
+        {fastify,route: "/post",method:"PUT"},
         async (request,reply) => {
             const res = await ConvexSubscribeClient.mutation(api.post.updatePost, {
                 id: request.query.id,
@@ -76,13 +73,12 @@ export default FastifyPlugin(async function(fastify,opt){
         }
     )
 
-    /* 記事削除 */
     RouteRegister<{
         id: Doc<"post">["_id"]
     }, {}, {
         post: Doc<"post">
     }>(
-        {fastify,route: RouteHelper({root: "post",end: []}),method:"DELETE"},
+        {fastify,route: "/post",method:"DELETE"},
         async (request,reply) => {
             const res = await ConvexSubscribeClient.mutation(api.post.deletePost, {
                 id: request.query.id
@@ -91,28 +87,4 @@ export default FastifyPlugin(async function(fastify,opt){
             reply.send({post: res});
         }
     )
-
-
-    /*
-    fastify.get("/post", async (request, reply) => {
-        const res = await ConvexSubscribeClient.query(api.post.getPost, {});
-        reply.type("application/json")
-        reply.send(res);
-    })
-
-    fastify.post("/post", async (request, reply) => {
-        const res = await ConvexSubscribeClient.mutation(api.post.createPost, {});
-        reply.type("application/json").send(res);
-    })
-    
-    fastify.put("/post", async (request, reply) => {
-        const res = await ConvexSubscribeClient.mutation(api.post.updatePost, {});
-        reply.type("application/json").send(res);
-    })
-    
-    fastify.delete("/post", async (request, reply) => {
-        const res = await ConvexSubscribeClient.mutation(api.post.deletePost, {});
-        reply.type("application/json").send(res);
-    })
-    */
 })

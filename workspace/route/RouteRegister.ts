@@ -24,7 +24,7 @@ export default function RouteRegister<
     method,
     }:
     {fastify:FastifyInstance ,
-    route: RouteType,
+    route: string,
     method: "GET" | "POST" | "DELETE"| "PUT"},
     func: RouteHandlerMethod<RawServerDefault, IncomingMessage, ServerResponse<IncomingMessage>, { Querystring: Q; Headers: H; Reply: R}, unknown, FastifySchema, FastifyTypeProviderDefault, FastifyBaseLogger>,
 ) 

@@ -16,10 +16,7 @@ export default FastifyPlugin(async function(fastify,opt){
     }>({
         fastify,
         method: "POST",
-        route: RouteHelper({
-            root: "playlist",
-            end: ["create"]
-        })
+        route: "/playlist/create"
     },async(request,reply) => {
         reply.status(200).type("application/json")
             .send({
@@ -31,11 +28,8 @@ export default FastifyPlugin(async function(fastify,opt){
     })
     RouteRegister<{id: Doc<"playlist">["_id"]},{},{list:Doc<"playlist"> }>({
         fastify,
-        method: "POST",
-        route: RouteHelper({
-            root: "playlist",
-            end: ["read"]
-        })
+        method: "GET",
+        route: "/playlist/read"
     },async(request,reply) => {
         reply.status(200).type("application/json").send({
             list:  await ConvexSubscribeClient.query(api.playlist.ReadList,{id: request.query.id})
@@ -44,10 +38,7 @@ export default FastifyPlugin(async function(fastify,opt){
     RouteRegister({
         fastify,
         method: "GET",
-        route: RouteHelper({
-            root: "playlist",
-            end: ["read","all"]
-        })
+        route: "/playlist/read/all"
     },async(request,reply) => {
         reply.status(200).type("application/json").send({
             lists: await ConvexSubscribeClient.query(api.playlist.ReadLists,{})
@@ -61,10 +52,7 @@ export default FastifyPlugin(async function(fastify,opt){
     }>({
         fastify,
         method: "PUT",
-        route: RouteHelper({
-            root: "playlist",
-            end: ["update"]
-        })
+        route: "/playlist/update"
     },async(request,reply) => {
         reply.status(200).type("application/json").send({
             result: await ConvexSubscribeClient.mutation(api.playlist.UpdateList,{
@@ -77,10 +65,7 @@ export default FastifyPlugin(async function(fastify,opt){
     RouteRegister<{id: Doc<"playlist">["_id"]},{},{}>({
         fastify,
         method: "DELETE",
-        route: RouteHelper({
-            root: "playlist",
-            end: ["delete"]
-        }) 
+        route: "/playlist/delete"
     },async(request,reply) => {
         await ConvexSubscribeClient.mutation(api.playlist.DeleteList,{
             id: request.query.id
